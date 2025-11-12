@@ -1,188 +1,506 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Ammu Organics — 100% pure, natural cold-pressed oils, organic spices, and traditional foods." />
+  <title>Ammu Organics — Pure. Natural. Honest.</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="Ammu Organics" />
+  <meta property="og:description" content="Pure. Natural. Honest. Cold-pressed oils, organic spices & traditional foods." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    :root{
+      --green:#2f6f4e;
+      --olive:#6b8a65;
+      --beige:#f6f2e9;
+      --accent:#c19a6b;
+      --muted:#6b6b6b;
+      --radius:14px;
+      --max-width:1100px;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+      scroll-behavior: smooth;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--beige),#ffffff);color:#163222;line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:28px}
+
+    /* Header / Hero */
+    header{position:fixed;left:0;right:0;top:0;z-index:40;background:rgba(255,255,255,0.8);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 22px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--olive));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:0 6px 18px rgba(47,111,78,0.18)}
+    .brand h1{font-size:18px;margin:0}
+    nav a{margin-left:14px;font-weight:600}
+    .cta{display:inline-block;padding:8px 14px;border-radius:10px;background:var(--accent);color:#fff;font-weight:700}
+
+    main{padding-top:96px}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:26px;align-items:center;padding:48px 0}
+    .hero-left h2{font-family:'Merriweather',serif;font-size:32px;margin:6px 0}
+    .tag{color:var(--muted);margin-bottom:18px}
+    .hero-buttons{display:flex;gap:12px}
+    .button{padding:12px 18px;border-radius:10px;font-weight:700}
+    .btn-primary{background:var(--green);color:#fff}
+    .btn-outline{border:2px solid var(--green);background:transparent;color:var(--green)}
+    .hero-right{border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 30px rgba(47,111,78,0.08)}
+    .hero-img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* Sections */
+    section{padding:44px 0}
+    h3.section-title{font-size:20px;margin:0 0 16px 0}
+    .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 18px rgba(15,15,15,0.03)}
+    .product-img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .meta{font-size:13px;color:var(--muted)}
+
+    /* Why choose */
+    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .feature{display:flex;flex-direction:column;align-items:center;padding:18px;background:linear-gradient(180deg,#fff, #fbfaf6);border-radius:12px}
+    .feature h4{margin:8px 0 0}
+
+    /* Testimonials */
+    .testimonials{display:flex;gap:14px}
+    .testi{background:#fff;padding:16px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.04);flex:1}
+    .testi .who{display:flex;gap:12px;align-items:center}
+    .avatar{width:46px;height:46px;border-radius:50%;background:var(--olive);display:flex;align-items:center;justify-content:center;color:#fff}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    form{background:#fff;padding:18px;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,0.04)}
+    label{display:block;font-size:13px;margin:8px 0 6px}
+    input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;font-size:14px}
+    .socials{display:flex;gap:8px;align-items:center}
+
+    footer{padding:18px 0;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr;}
+      .card-grid{grid-template-columns:repeat(2,1fr)}
+      .features{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:560px){
+      .nav{padding:10px}
+      nav a{display:none}
+      .card-grid{grid-template-columns:1fr}
+      header{position:static}
+      .logo{width:44px;height:44px}
+      .hero-left h2{font-size:22px}
+    }
+
+    /* small animations */
+    .fade-up{transform:translateY(12px);opacity:0;transition:all 560ms cubic-bezier(.2,.9,.3,1)}
+    .in-view{transform:none;opacity:1}
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo">AO</div>
+      <div>
+        <h1 style="font-size:16px;margin:0">Ammu Organics</h1>
+        <div style="font-size:12px;color:var(--muted)">Pure. Natural. Honest.</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#why">Why Us</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left fade-up">
+      <small class="meta">Small batch • Cold pressed • Locally sourced</small>
+      <h2>Cold-Pressed Oils &amp; Organic Pantry — Straight from our fields to your kitchen.</h2>
+      <p class="tag">Trusted family recipes, preservative-free products, ethically sourced ingredients.</p>
+      <div class="hero-buttons">
+        <a class="button btn-primary" href="#products">Shop Now</a>
+        <a class="button btn-outline" href="#contact">Contact Us</a>
+      </div>
+      <div style="margin-top:18px;color:var(--muted);font-size:14px">Free shipping on orders over ₹999 within India.</div>
+    </div>
+
+    <div class="hero-right fade-up" style="min-height:280px;">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="organic oil & spices" />
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h3 class="section-title">About Ammu Organics</h3>
+    <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+      <p style="flex:1;min-width:260px">Ammu Organics is a family-run brand dedicated to bringing you 100% pure, chemical-free foods. We follow traditional extraction methods and small-batch production to preserve nutrients and authentic taste. Sustainability, traceability, and respect for the farmer are at the heart of everything we do.</p>
+      <div style="width:320px;padding:12px;background:#fff;border-radius:12px;box-shadow:0 10px 24px rgba(0,0,0,0.04)">
+        <strong>Our promise</strong>
+        <ul style="padding-left:18px;margin:8px 0 0;color:var(--muted)">
+          <li>100% Pure, cold-pressed oils</li>
+          <li>No preservatives or additives</li>
+          <li>Fair sourcing from local farmers</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="card-grid" style="margin-top:12px;">
+  <article class="card fade-up">
+    <!-- Instagram Embed -->
+    <blockquote class="instagram-media" 
+      data-instgrm-permalink="https://www.instagram.com/reel/DBAoSPeIX0A/?utm_source=ig_web_copy_link"
+      data-instgrm-version="14" 
+      style="background:#FFF; border:0; margin:0 auto; max-width:540px; width:100%; border-radius:12px;">
+    </blockquote>
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <h4>Cold-Pressed Sweet Almond Oil</h4>
+    <p class="meta">Rich aroma, ideal for tempering and traditional cooking.</p>
+  </article>
+
+    <article class="card fade-up">
+    <!-- Instagram Embed -->
+    <blockquote class="instagram-media" 
+      data-instgrm-permalink="https://www.instagram.com/reel/DBAoSPeIX0A/?utm_source=ig_web_copy_link"
+      data-instgrm-version="14" 
+      style="background:#FFF; border:0; margin:0 auto; max-width:540px; width:100%; border-radius:12px;">
+    </blockquote>
+    <script async src="//www.instagram.com/embed.js"></script>
+
+    <h4>Cold-Pressed Sweet Almond Oil</h4>
+    <p class="meta">Rich aroma, ideal for tempering and traditional cooking.</p>
+  </article>
+</div>
+
+  <!-- Products -->
+  <section id="products">
+    <h3 class="section-title">Products</h3>
+    <p class="meta">Explore our categories — click any product to view details.</p>
+
+    <div class="card-grid" style="margin-top:12px">
+     <article class="card fade-up">
+        <img class="product-img" src="https://www.instagram.com/reel/DBAoSPeIX0A/?utm_source=ig_web_copy_link&igsh=dG0wejhhdGs2eG8=" alt="cold pressed sesame oil">
+       
+       <h4><a href="https://www.instagram.com/ammuorganics8888/" aria-label="instagram">📸 instagram</a></h4>
+              <h4><a href="https://www.instagram.com/ammuorganics8888/" aria-label="instagram">Cold-Pressed sweet Almond oil</a></h4>
+        <p class="meta">Rich aroma, ideal for tempering and traditional cooking.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1604908176972-8aa889b0f1f9?auto=format&fit=crop&w=800&q=60" alt="organic spices">
+        <h4>Organic Spice Mixes</h4>
+        <p class="meta">Made from sun-dried and stone-ground spices.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=60" alt="cold pressed sesame oil">
+        <h4>Cold-Pressed Sesame Oil</h4>
+        <p class="meta">Rich aroma, ideal for tempering and traditional cooking.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1604908176972-8aa889b0f1f9?auto=format&fit=crop&w=800&q=60" alt="organic spices">
+        <h4>Organic Spice Mixes</h4>
+        <p class="meta">Made from sun-dried and stone-ground spices.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1603010754905-4d4ce3c05b84?auto=format&fit=crop&w=800&q=60" alt="millet grains">
+        <h4>Millets &amp; Grains</h4>
+        <p class="meta">Traditional millets — nutrient-dense and naturally gluten-free.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=60" alt="herbal powders">
+        <h4>Herbal Powders</h4>
+        <p class="meta">Dry-ground herbal powders for everyday wellness.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1484981184820-2e84ea0e2b7b?auto=format&fit=crop&w=800&q=60" alt="ground chilli powder">
+        <h4>Chilli &amp; Curry Powders</h4>
+        <p class="meta">Traditional blends with no artificial colours or additives.</p>
+      </article>
+
+      <article class="card fade-up">
+        <img class="product-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=60" alt="gift pack">
+        <h4>Gift Packs</h4>
+        <p class="meta">Curated selections — perfect for festivals and gifting.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Why choose us -->
+  <section id="why">
+    <h3 class="section-title">Why Choose Ammu Organics</h3>
+    <div class="features" style="margin-top:12px">
+      <div class="feature fade-up">
+        <div style="font-size:26px">🌿</div>
+        <h4>100% Pure</h4>
+        <div class="meta">No blends, no solvents.</div>
+      </div>
+      <div class="feature fade-up">
+        <div style="font-size:26px">🚫</div>
+        <h4>Preservative-Free</h4>
+        <div class="meta">Only natural preservation through careful processing.</div>
+      </div>
+      <div class="feature fade-up">
+        <div style="font-size:26px">🛠️</div>
+        <h4>Traditional Methods</h4>
+        <div class="meta">Stone-grinding and cold extraction.</div>
+      </div>
+      <div class="feature fade-up">
+        <div style="font-size:26px">🤝</div>
+        <h4>Locally Sourced</h4>
+        <div class="meta">Fair prices for farmers; traceable supply chains.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <h3 class="section-title">What Customers Say</h3>
+    <div class="testimonials" style="margin-top:12px">
+      <div class="testi fade-up">
+        <div class="who">
+          <div class="avatar">AM</div>
+          <div>
+            <strong>A. Meena</strong>
+            <div class="meta">Home cook, Coimbatore</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"I have been using Ammu Organics sesame oil for months — the flavour is authentic and the quality is excellent. My family loves it!"</p>
+      </div>
+
+      <div class="testi fade-up">
+        <div class="who">
+          <div class="avatar">RK</div>
+          <div>
+            <strong>R. Kumar</strong>
+            <div class="meta">Ayurvedic practitioner</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"Pure products and honest labelling — great for therapeutic cooking and herbal remedies."</p>
+      </div>
+
+      <div class="testi fade-up">
+        <div class="who">
+          <div class="avatar">SS</div>
+          <div>
+            <strong>S. Shree</strong>
+            <div class="meta">Small cafe owner</div>
+          </div>
+        </div>
+        <p style="margin-top:10px">"The millet flours have a great texture and retain the taste of traditional recipes. Customers ask for them again."</p>
+      </div>
+        </div>
+       </section>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cold-Pressed Sweet Almond Oil - Ammu Organics</title>
-
+  <title>Ammu Organics - Cold Pressed Oils</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #fffdf8;
+      background-color: #faf8f3;
       color: #333;
       margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #2e6b3d;
-      color: white;
-      padding: 15px 0;
-      text-align: center;
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
       padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: flex-start;
     }
 
-    .gallery {
-      flex: 1 1 48%;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .gallery img, .gallery iframe {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: none;
-    }
-
-    .gallery img.active, .gallery iframe.active {
-      display: block;
-    }
-
-    .nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(46,107,61,0.8);
-      color: white;
-      border: none;
-      font-size: 22px;
-      padding: 8px 14px;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-
-    .nav-btn:hover {
-      background: rgba(46,107,61,1);
-    }
-
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    .details {
-      flex: 1 1 45%;
-    }
-
-    .details h1 {
-      color: #2e6b3d;
-      margin-bottom: 10px;
-      font-size: 1.6rem;
-    }
-
-    .price {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #3b8551;
-      margin-bottom: 20px;
-    }
-
-    .description {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn {
-      background-color: #2e6b3d;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #3b8551;
-    }
-
-    .back-link {
-      display: block;
-      margin: 30px auto;
+    h2 {
       text-align: center;
-      text-decoration: none;
       color: #2e6b3d;
-      font-weight: 500;
+      margin-bottom: 20px;
     }
 
-    @media (max-width: 800px) {
-      .container { flex-direction: column; align-items: center; }
-      .gallery, .details { width: 100%; }
+    /* --- Row Layout --- */
+    .card-row {
+      display: flex;
+      flex-wrap: nowrap; /* keeps them in one row */
+      gap: 16px;
+      overflow-x: auto; /* allows horizontal scrolling on smaller screens */
+      padding-bottom: 10px;
+    }
+
+    .card {
+      flex: 0 0 24%; /* 4 cards per row */
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+      min-width: 250px; /* ensures size consistency */
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .product-video {
+      width: 100%;
+      height: 250px;
+      border-radius: 12px;
+      border: none;
+    }
+
+    h4 {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #2e6b3d;
+    }
+
+    .meta {
+      color: #555;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    /* Hide scrollbar for cleaner look */
+    .card-row::-webkit-scrollbar {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <header>Ammu Organics</header>
+  <h2>Our Cold-Pressed Oils</h2>
 
-  <div class="container">
+  <div class="card-row">
 
-    <!-- 🖼️ Product Gallery -->
-    <div class="gallery" id="gallery">
-      <img src="images/almond1.jpg" alt="Cold-Pressed Sweet Almond Oil bottle front view" class="active">
-      <img src="images/almond2.jpg" alt="Almond oil bottle side view">
-      <img src="images/almond3.jpg" alt="Pure almond oil close-up">
-      <img src="images/almond4.jpg" alt="Almond oil poured in glass bowl">
-      <img src="images/almond5.jpg" alt="Ammu Organics almond oil packaging">
-      <iframe src="https://www.instagram.com/reel/DBAoSPeIX0A/embed" allowfullscreen></iframe>
+    <!-- Card 1 -->
+    <article class="card fade-up">
+      <iframe 
+        class="product-video"
+        src="https://www.instagram.com/reel/DBAoSPeIX0A/embed"
+        allowfullscreen>
+      </iframe>
+      <h4>Cold-Pressed Sweet Almond Oil</h4>
+      <p class="meta">Rich aroma, ideal for tempering and traditional cooking.</p>
+    </article>
 
-      <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
-      <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
-    </div>
+    <!-- Card 2 -->
+    <article class="card fade-up">
+      <iframe 
+        class="product-video"
+        src="https://www.instagram.com/reel/DBAbCdEfGhI/embed"
+        allowfullscreen>
+      </iframe>
+      <h4>Cold-Pressed Coconut Oil</h4>
+      <p class="meta">Pure and fresh, perfect for cooking and skincare.</p>
+    </article>
 
-    <!-- 🛒 Product Details -->
-    <div class="details">
-      <h1>Cold-Pressed Sweet Almond Oil</h1>
-      <div class="price">₹480 / 500ml</div>
+    <!-- Card 3 -->
+    <article class="card fade-up">
+      <iframe 
+        class="product-video"
+        src="https://www.instagram.com/reel/DBAexample3/embed"
+        allowfullscreen>
+      </iframe>
+      <h4>Cold-Pressed Groundnut Oil</h4>
+      <p class="meta">Traditional flavor with rich nutrients and aroma.</p>
+    </article>
 
-      <div class="description">
-        Experience the natural goodness of **Cold-Pressed Sweet Almond Oil** from Ammu Organics.  
-        Extracted using traditional *marachekku* (wood press) methods, our almond oil is rich in vitamin E and healthy fats.  
-        Ideal for cooking, skin nourishment, and hair care.  
-        100% Pure • Natural • Free from Preservatives.
-      </div>
-
-      <div class="buttons">
-        <button class="btn">Add to Cart</button>
-        <button class="btn">Buy Now</button>
-      </div>
-    </div>
+    <!-- Card 4 -->
+    <article class="card fade-up">
+      <iframe 
+        class="product-video"
+        src="https://www.instagram.com/reel/DBAexample4/embed"
+        allowfullscreen>
+      </iframe>
+      <h4>Cold-Pressed Sesame Oil</h4>
+      <p class="meta">Authentic taste, ideal for South Indian cooking.</p>
+    </article>
 
   </div>
 
-  <a href="index.html" class="back-link">← Back to Home</a>
+  </section>
 
-  <script>
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('#gallery img, #gallery iframe');
+  <!-- Contact -->
+  <section id="contact">
+    <h3 class="section-title">Get in touch</h3>
+    <div class="contact-grid" style="margin-top:12px">
+      <form onsubmit="handleContact(event)">
+        <label for="name">Name</label>
+        <input id="name" name="name" placeholder="Your name" required />
 
-    function changeSlide(direction) {
-      slides[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex + direction + slides.length) % slides.length;
-      slides[currentIndex].classList.add('active');
-    }
-  </script>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+
+        <div style="display:flex;gap:12px;margin-top:12px;align-items:center;justify-content:space-between">
+          <button class="button btn-primary" type="submit">Send Message</button>
+          <div class="socials">
+            <a href="https://wa.me/919629575552" target="_blank" aria-label="Whatsapp">📱 WhatsApp</a>
+            <a href="https://www.instagram.com/ammuorganics8888/" aria-label="instagram">📸 instagram</a>
+            <a href="#" aria-label="Facebook">🔗 Facebook</a>
+          </div>
+        </div>
+      </form>
+
+      <aside style="min-width:220px">
+        <div style="background:#fff;padding:18px;border-radius:12px;box-shadow:0 10px 18px rgba(0,0,0,0.04)">
+          <strong>Contact details</strong>
+          <p class="meta" style="margin:8px 0">WhatsApp: +91 9629575552<br/>Email: ammuorganicfood@gmail.com<br/>Location: Tamil Nadu, India</p>
+          <div style="margin-top:8px">
+            <strong>Opening</strong>
+            <div class="meta">Mon — Sat: 8:30 — 22:30</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">© 2025 Ammu Organics | Made with ❤️ in India</div>
+</footer>
+
+<script>
+  // small in-view animation on scroll
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add('in-view')
+    })
+  },{threshold:0.12})
+  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el))
+
+  // simple contact handler (no backend) - opens mailto as fallback
+  function handleContact(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const subject = encodeURIComponent('Contact from Ammu Organics website - ' + name);
+    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+
+    // try to open mail client
+    window.location.href = `mailto:hello@ammuorganics.example?subject=${subject}&body=${body}`;
+  }
+</script>
 
 </body>
 </html>
