@@ -294,7 +294,7 @@
         <p style="margin-top:10px">"The millet flours have a great texture and retain the taste of traditional recipes. Customers ask for them again."</p>
       </div>
 
-     <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -315,20 +315,24 @@
       margin-bottom: 20px;
     }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* --- Row Layout --- */
+    .card-row {
+      display: flex;
+      flex-wrap: nowrap; /* keeps them in one row */
       gap: 16px;
-      margin-top: 12px;
+      overflow-x: auto; /* allows horizontal scrolling on smaller screens */
+      padding-bottom: 10px;
     }
 
     .card {
+      flex: 0 0 24%; /* 4 cards per row */
       background: #fff;
       border-radius: 16px;
       padding: 12px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       text-align: center;
       transition: transform 0.3s ease;
+      min-width: 250px; /* ensures size consistency */
     }
 
     .card:hover {
@@ -354,13 +358,18 @@
       font-size: 0.9rem;
       margin-bottom: 10px;
     }
+
+    /* Hide scrollbar for cleaner look */
+    .card-row::-webkit-scrollbar {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
   <h2>Our Cold-Pressed Oils</h2>
 
-  <div class="card-grid">
+  <div class="card-row">
 
     <!-- Card 1 -->
     <article class="card fade-up">
