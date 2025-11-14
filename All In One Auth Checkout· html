@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ammu Organics - All in One</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #faf7f2; }
+    header { background: #4a7c2b; padding: 16px; color: white; text-align: center; font-size: 22px; }
+    .container { max-width: 500px; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 6px; border: 1px solid #ccc; }
+    button { background: #4a7c2b; color: white; border: none; cursor: pointer; }
+    button:hover { opacity: 0.9; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>Ammu Organics - Login / Signup / OTP / Checkout</header>
+
+  <div class="container" id="signupBox">
+    <h2>Signup</h2>
+    <input type="text" id="su_name" placeholder="Full Name" />
+    <input type="text" id="su_mobile" placeholder="Mobile Number" />
+    <input type="password" id="su_pass" placeholder="Password" />
+    <button onclick="signup()">Create Account</button>
+    <button onclick="switchToLogin()">Already have an account?</button>
+  </div>
+
+  <div class="container hidden" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="li_mobile" placeholder="Mobile Number" />
+    <input type="password" id="li_pass" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <button onclick="switchToOTP()">Login via OTP</button>
+    <button onclick="switchToSignup()">Create New Account</button>
+  </div>
+
+  <div class="container hidden" id="otpBox">
+    <h2>OTP Login</h2>
+    <input type="text" id="otp_mobile" placeholder="Mobile Number" />
+    <button onclick="sendOTP()">Send OTP</button>
+
+    <input type="text" id="otp_code" placeholder="Enter OTP" />
+    <button onclick="verifyOTP()">Verify OTP</button>
+    <button onclick="switchToLogin()">Back</button>
+  </div>
+
+  <div class="container hidden" id="checkoutBox">
+    <h2>Checkout</h2>
+    <p>Sample Product: <b>Cold Pressed Gingelly Oil</b></p>
+    <p>Price: ₹250</p>
+    <button onclick="payNow()">Pay with Razorpay</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+<script>
+  function switchToLogin(){ signupBox.classList.add('hidden'); otpBox.classList.add('hidden'); loginBox.classList.remove('hidden'); }
+  function switchToSignup(){ loginBox.classList.add('hidden'); signupBox.classList.remove('hidden'); }
+  function switchToOTP(){ loginBox.classList.add('hidden'); otpBox.classList.remove('hidden'); }
+
+  function signup(){ alert("Signup logic goes here (backend needed)"); switchToLogin(); }
+  function login(){ alert("Login logic goes here (backend needed)"); checkoutBox.classList.remove('hidden'); loginBox.classList.add('hidden'); }
+  function sendOTP(){ alert("OTP sent using Twilio backend API"); }
+  function verifyOTP(){ alert("OTP verified"); checkoutBox.classList.remove('hidden'); otpBox.classList.add('hidden'); }
+  function payNow(){ alert("Razorpay payment integration here – needs backend order API"); }
+  function logout(){ checkoutBox.classList.add('hidden'); switchToLogin(); }
+</script>
+
+</body>
+</html>
