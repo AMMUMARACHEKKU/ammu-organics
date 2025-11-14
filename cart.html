@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ammu Organics — Cart</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2f6f4e;
+    --accent:#c19a6b;
+    --bg:#fbf6ef;
+    --muted:#6b6b6b;
+    --card:#fff;
+    --shadow: 0 10px 30px rgba(22,50,34,0.06);
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);margin:0;color:#163222;line-height:1.4}
+  .wrap{max-width:1200px;margin:36px auto;padding:18px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  header .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--green),#6b8a65);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+  h1{font-size:20px;margin:0}
+  .muted{color:var(--muted);font-size:13px}
+
+  .cart-area{display:flex;gap:24px;align-items:flex-start}
+  @media (max-width:960px){ .cart-area{flex-direction:column} }
+
+  /* left table */
+  .cart-left{flex:2;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+  table{width:100%;border-collapse:collapse}
+  thead th{background:#f6f6f1;padding:12px;text-align:left;font-weight:600;border-bottom:1px solid #eee}
+  tbody td{padding:12px;border-bottom:1px solid #f0f0f0;vertical-align:middle}
+  .product-cell{display:flex;gap:12px;align-items:center}
+  .product-cell img{width:78px;height:78px;object-fit:cover;border-radius:10px;border:1px solid #eee}
+  .prod-title{font-weight:600}
+  .meta-small{font-size:13px;color:var(--muted)}
+
+  .qty-box{display:inline-flex;align-items:center;border-radius:8px;border:1px solid #eee;overflow:hidden}
+  .qty-btn{width:34px;height:34px;border:0;background:var(--green);color:#fff;cursor:pointer;font-weight:700}
+  .qty-input{width:54px;text-align:center;border:0;padding:6px 8px;background:#fff}
+
+  .remove-btn{background:#e74c3c;border:0;color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+  /* right summary */
+  .cart-right{flex:1;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;height:fit-content}
+  .summary h3{margin:0 0 10px}
+  .line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #eee}
+  .total{display:flex;justify-content:space-between;font-weight:700;padding:12px 0;font-size:18px}
+  select,input{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-top:8px;margin-bottom:12px}
+  .btn{display:inline-block;background:var(--green);color:#fff;padding:12px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700;width:100%}
+  .btn.secondary{background:#fff;border:2px solid var(--green);color:var(--green)}
+  .note{font-size:13px;color:var(--muted);margin-top:10px}
+
+  /* empty cart */
+  .empty{padding:40px;text-align:center;color:var(--muted)}
+  /* responsive */
+  @media (max-width:560px){
+    .product-cell img{width:64px;height:64px}
+    thead th:nth-child(3), tbody td:nth-child(3), thead th:nth-child(5), tbody td:nth-child(5){display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">AO</div>
+      <div>
+        <h1>Ammu Organics</h1>
+        <div class="muted">Pure. Natural. Honest.</div>
+      </div>
+    </div>
+    <div>
+      <div class="muted">Cart</div>
+    </div>
+  </header>
+
+  <main class="cart-area" role="main">
+    <!-- LEFT: Cart table -->
+    <section class="cart-left" aria-label="Your cart">
+      <table aria-live="polite">
+        <thead>
+          <tr>
+            <th style="width:44%">Product</th>
+            <th style="width:14%">Price</th>
+            <th style="width:18%">Quantity</th>
+            <th style="width:14%">Subtotal</th>
+            <th style="width:10%">Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <!-- populated by JS -->
+        </tbody>
+      </table>
+
+      <div id="empty-state" class="empty" style="display:none">
+        <p>Your cart is empty.</p>
+        <p><a href="index.html" style="color:var(--green)">Continue shopping</a></p>
+      </div>
+    </section>
+
+    <!-- RIGHT: Summary & Shipping -->
+    <aside class="cart-right" aria-label="Cart totals">
+      <div class="summary">
+        <h3>Order Summary</h3>
+
+        <div class="line"><span>Subtotal</span><span>₹ <span id="subtotal">0</span></span></div>
+
+        <h4 style="margin-top:16px">Shipping</h4>
+        <label class="muted">Country</label>
+        <select id="country" aria-label="Country">
+          <option value="India" selected>India</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label class="muted">State</label>
+        <select id="state" aria-label="State"></select>
+
+        <label class="muted">District</label>
+        <select id="district" aria-label="District"></select>
+
+        <label class="muted">City / Town</label>
+        <select id="city" aria-label="City"></select>
+
+        <label class="muted">Pincode</label>
+        <input id="pincode" type="text" inputmode="numeric" placeholder="6-digit pincode">
+
+        <button class="btn secondary" onclick="updateShipping()">Update Shipping</button>
+
+        <div class="line" style="margin-top:12px"><span>Shipping</span><span>₹ <span id="shipping">0</span></span></div>
+
+        <div class="total"><span>Grand Total</span><span>₹ <span id="grand-total">0</span></span></div>
+
+        <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+
+        <div class="note">Shipping: Tamil Nadu ₹60 (Free for orders ≥ ₹999), South India ₹80, Rest of India ₹120.</div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<!-- Razorpay -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+/* ========== CONFIG ========== */
+// Shipping rules
+const SHIPPING = {
+  TAMIL_NADU: 60,
+  SOUTH: 80,
+  REST: 120,
+  FREE_ABOVE_TN: 999
+};
+// South India states array (for rule purposes)
+const SOUTH_STATES = ['Tamil Nadu','Kerala','Karnataka','Andhra Pradesh','Telangana','Puducherry'];
+
+/* Sample district / city data (expand as needed) */
+const REGIONS = {
+  'Tamil Nadu': {
+    districts: {
+      'Chennai': ['Chennai Central','Adyar','T. Nagar'],
+      'Coimbatore': ['Coimbatore','Peelamedu','Gandhipuram'],
+      'Madurai': ['Madurai','Thirupparankundram','Avaniyapuram'],
+      'Tirunelveli': ['Tirunelveli','Palayamkottai']
+    }
+  },
+  'Kerala': {
+    districts: {'Thiruvananthapuram':['Thiruvananthapuram','Kowdiar'], 'Kochi':['Ernakulam','Fort Kochi']}
+  },
+  'Karnataka': {
+    districts: {'Bengaluru':['Bengaluru','Whitefield'], 'Mysore':['Mysore']}
+  },
+  'Andhra Pradesh': { districts: {'Visakhapatnam':['Vizag','Gajuwaka']} },
+  'Telangana': { districts: {'Hyderabad':['Hyderabad']} },
+  // Minimal placeholder for other states (you can expand)
+  'Maharashtra': { districts: {'Mumbai':['Mumbai'], 'Pune':['Pune']} },
+  'Other': { districts: {'Other District': ['Other City']} }
+};
+
+/* ========== UTIL & CART STORAGE ========== */
+// Cart key used by product pages to push items:
+// Expect stored items to be an array of objects: { sku, product, variant, price, qty, img }
+// We'll also fallback to a demo item if cart empty (for testing)
+function getCart(){
+  try{
+    const raw = localStorage.getItem('amu_cart') || localStorage.getItem('cart') || '[]';
+    const parsed = JSON.parse(raw);
+    if(!Array.isArray(parsed)) return [];
+    return parsed.map(item=>{
+      // normalize fields
+      return {
+        sku: item.sku || item.id || ('SKU'+Math.random().toString(36).slice(2,8)),
+        product: item.product || item.name || 'Unknown product',
+        variant: item.variant || item.size || '',
+        price: Number(item.price || item.unit_price || 0),
+        qty: Number(item.qty || item.quantity || 1),
+        img: item.img || item.image || 'https://images.unsplash.com/photo-1606813902917-22c5c1da3a04?auto=format&fit=crop&w=600&q=80'
+      };
+    });
+  }catch(e){
+    return [];
+  }
+}
+function saveCart(cart){ localStorage.setItem('amu_cart', JSON.stringify(cart)); }
+
+let CART = getCart();
+
+/* Demo fallback (if you want to see layout without adding real items) */
+// if(CART.length === 0) {
+//   CART = [
+//     { sku:'ALM100', product:'Almond Oil', variant:'100 ml', price:249, qty:1, img:'images/almond1.jpg' },
+//     { sku:'MUS250', product:'Mustard Oil', variant:'250 ml', price:199, qty:2, img:'https://images.unsplash.com/photo-1621891339221-b3f6acda1e9d?auto=format&fit=crop&w=600&q=80' }
+//   ];
+//   saveCart(CART);
+//}
+
+/* ========== RENDER ========== */
+const cartBody = document.getElementById('cart-body');
+const emptyState = document.getElementById('empty-state');
+
+function renderCart(){
+  cartBody.innerHTML = '';
+  if(!CART || CART.length === 0){
+    emptyState.style.display = 'block';
+    cartBody.parentElement.style.display = 'none';
+    document.getElementById('subtotal').innerText = '0';
+    document.getElementById('shipping').innerText = '0';
+    document.getElementById('grand-total').innerText = '0';
+    return;
+  }
+  emptyState.style.display = 'none';
+  cartBody.parentElement.style.display = '';
+  let subtotal = 0;
+  CART.forEach((item, idx)=>{
+    const line = item.price * item.qty;
+    subtotal += line;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div class="product-cell">
+          <img src="${item.img}" alt="${escapeHtml(item.product)}">
+          <div>
+            <div class="prod-title">${escapeHtml(item.product)}</div>
+            <div class="meta-small">${escapeHtml(item.variant)}</div>
+            <div class="meta-small">SKU: ${escapeHtml(item.sku)}</div>
+          </div>
+        </div>
+      </td>
+      <td>₹ ${item.price.toFixed(2)}</td>
+      <td>
+        <div class="qty-box" role="group" aria-label="Quantity controls">
+          <button class="qty-btn" onclick="changeQty(${idx}, -1)" aria-label="Decrease">-</button>
+          <input class="qty-input" type="number" min="1" value="${item.qty}" onchange="manualQty(${idx}, this.value)">
+          <button class="qty-btn" onclick="changeQty(${idx}, 1)" aria-label="Increase">+</button>
+        </div>
+      </td>
+      <td>₹ ${line.toFixed(2)}</td>
+      <td><button class="remove-btn" onclick="removeItem(${idx})" aria-label="Remove item">Remove</button></td>
+    `;
+    cartBody.appendChild(tr);
+  });
+  document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+  // recalc shipping with current selections
+  recalcShipping();
+}
+
+/* ========== CART MUTATIONS ========== */
+function changeQty(index, delta){
+  CART[index].qty = Math.max(1, Number(CART[index].qty) + delta);
+  saveCart(CART);
+  renderCart();
+}
+function manualQty(index, value){
+  const v = Math.max(1, Number(value || 1));
+  CART[index].qty = v;
+  saveCart(CART);
+  renderCart();
+}
+function removeItem(index){
+  if(!confirm('Remove this item from cart?')) return;
+  CART.splice(index,1);
+  saveCart(CART);
+  renderCart();
+}
+
+/* ========== SHIPPING UI POPULATION ========== */
+const countryEl = document.getElementById('country');
+const stateEl = document.getElementById('state');
+const districtEl = document.getElementById('district');
+const cityEl = document.getElementById('city');
+
+function populateStates(country){
+  stateEl.innerHTML = '';
+  districtEl.innerHTML = '';
+  cityEl.innerHTML = '';
+  if(country === 'India'){
+    // list of some important states (you can expand)
+    const states = Object.keys(REGIONS).filter(s => s !== 'Other');
+    states.forEach(s => {
+      const opt = document.createElement('option'); opt.value = s; opt.textContent = s; stateEl.appendChild(opt);
+    });
+    // add an 'Other' catch
+    const o = document.createElement('option'); o.value='Other'; o.textContent='Other'; stateEl.appendChild(o);
+    stateEl.value = 'Tamil Nadu';
+    populateDistricts('Tamil Nadu');
+  } else {
+    // Other countries (simple fallback)
+    const opt = document.createElement('option'); opt.value='Other'; opt.textContent='Other'; stateEl.appendChild(opt);
+    populateDistricts('Other');
+  }
+}
+function populateDistricts(state){
+  districtEl.innerHTML = '';
+  cityEl.innerHTML = '';
+  const data = REGIONS[state] || REGIONS['Other'];
+  const districts = Object.keys(data.districts || {});
+  districts.forEach(d => {
+    const opt = document.createElement('option'); opt.value = d; opt.textContent = d; districtEl.appendChild(opt);
+  });
+  if(districts.length === 0){
+    const opt = document.createElement('option'); opt.value='Other'; opt.textContent='Other'; districtEl.appendChild(opt);
+    populateCities('Other', 'Other');
+  } else {
+    populateCities(state, districts[0]);
+  }
+}
+function populateCities(state, district){
+  cityEl.innerHTML = '';
+  const data = (REGIONS[state] && REGIONS[state].districts && REGIONS[state].districts[district]) || ['Other City'];
+  data.forEach(c => {
+    const opt = document.createElement('option'); opt.value = c; opt.textContent = c; cityEl.appendChild(opt);
+  });
+}
+
+/* wire events */
+stateEl.addEventListener('change', ()=> populateDistricts(stateEl.value));
+districtEl.addEventListener('change', ()=> populateCities(stateEl.value, districtEl.value));
+countryEl.addEventListener('change', ()=> populateStates(countryEl.value));
+
+/* ========== SHIPPING CALCULATION ========== */
+function recalcShipping(){
+  const subtotal = parseFloat(document.getElementById('subtotal').innerText || '0');
+  const country = countryEl.value;
+  const state = stateEl.value;
+
+  let ship = 0;
+  if(country !== 'India'){
+    // for other countries, treat as "Rest" with heavier shipping; set to REST
+    ship = SHIPPING.REST;
+  } else {
+    if(state === 'Tamil Nadu'){
+      ship = SHIPPING.TAMIL_NADU;
+      if(subtotal >= SHIPPING.FREE_ABOVE_TN) ship = 0;
+    } else if(SOUTH_STATES.includes(state)){
+      ship = SHIPPING.SOUTH;
+    } else {
+      ship = SHIPPING.REST;
+    }
+  }
+
+  document.getElementById('shipping').innerText = ship.toFixed(2);
+  document.getElementById('grand-total').innerText = (subtotal + ship).toFixed(2);
+  return {ship, subtotal};
+}
+
+function updateShipping(){
+  // ensure pincode length is 6 for India (simple validation)
+  if(countryEl.value === 'India'){
+    const pin = (document.getElementById('pincode').value || '').trim();
+    if(pin === '' || pin.length < 3){ // allow partial but warn
+      // proceed anyway but you could enforce 6-digit
+    }
+  }
+  recalcShipping();
+}
+
+/* ========== CHECKOUT (Razorpay client integration - test) ========== */
+function checkout(){
+  if(!CART || CART.length === 0){ alert('Your cart is empty'); return; }
+  const { ship, subtotal } = recalcShipping();
+  const total = Math.round((subtotal + ship) * 100); // paise
+
+  // create options - NOTE: for full secure flow you should create order on server and pass order_id
+  const options = {
+    key: "RAZORPAY_TEST_KEY_HERE", // <-- REPLACE with your key
+    amount: total,
+    currency: "INR",
+    name: "Ammu Organics",
+    description: "Order Payment",
+    image: "", // optional logo url
+    handler: function (response){
+      // on success, you should verify payment on server
+      alert("Payment successful. Payment ID: " + response.razorpay_payment_id);
+      // clear cart
+      CART = [];
+      saveCart(CART);
+      renderCart();
+    },
+    prefill: {
+      name: "",
+      email: "",
+      contact: ""
+    },
+    notes: {
+      shipping_state: stateEl.value,
+      shipping_district: districtEl.value,
+      shipping_city: cityEl.value,
+      shipping_pincode: document.getElementById('pincode').value || ''
+    },
+    theme: {
+      color: "#2f6f4e"
+    }
+  };
+  const rzp = new Razorpay(options);
+  rzp.open();
+}
+
+/* ========== HELPERS ========== */
+function escapeHtml(s){ if(!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* initialize UI */
+populateStates('India');
+renderCart();
+
+</script>
+</body>
+</html>
