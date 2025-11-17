@@ -157,16 +157,7 @@
         <button class="btn-buy" id="buyNow">Buy Now</button>
      <button class="btn-cart" id="addCart">Add to Cart</button>
          <script>
-function addToCartFromProduct(sku, name, variant, price, img){
-  const key = 'amu_cart';
-  const cart = JSON.parse(localStorage.getItem(key) || '[]');
-  // check if same sku+variant exists, increase qty
-  const idx = cart.findIndex(i => i.sku === sku && i.variant === variant);
-  if(idx > -1){ cart[idx].qty = (cart[idx].qty || 1) + 1; }
-  else { cart.push({ sku, product: name, variant, price: Number(price), qty: 1, img }); }
-  localStorage.setItem(key, JSON.stringify(cart));
-  alert('Added to cart');
-}
+
 </script>
 <button onclick="addToCartFromProduct('ALM100','Ammu Almond Oil','100 ml',249,'images/almond1.jpg')">Add to cart</button>
 
