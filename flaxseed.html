@@ -1,504 +1,144 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ammu Organics — Cold Pressed Almond Oil | 100% Pure</title>
-  <meta name="description" content="Ammu Organics Cold Pressed Almond Oil — 100% pure, unrefined sweet almond oil. For skin, hair, baby care and culinary use. Cold-pressed, vitamin E rich, preservative-free." />
-  <meta name="keywords" content="almond oil, cold pressed almond oil, pure almond oil, Ammu Organics, natural oil, skin oil, hair oil" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Ammu Organics – Product Page</title>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Ammu Organics — Cold Pressed Almond Oil" />
-  <meta property="og:description" content="100% pure cold-pressed almond oil for skin, hair & culinary use. Nutritious, unrefined, and preservative-free." />
-  <meta property="og:image" content="images/almond1.jpg" />
-  <meta property="og:type" content="product" />
+<style>
+body{font-family:Arial;margin:20px;}
+.variants button{
+  padding:8px 14px;
+  margin:5px;
+  border:1px solid #2e7d32;
+  background:#fff;
+  color:#2e7d32;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.variants .selected{
+  background:#2e7d32;
+  color:#fff;
+}
+.qty{margin-top:15px;display:flex;align-items:center;}
+.qty button{
+  width:32px;height:32px;font-size:20px;
+  border:1px solid #2e7d32;color:#2e7d32;
+  background:#fff;border-radius:6px;cursor:pointer;
+}
+.qty input{
+  width:60px;margin:0 10px;padding:5px;
+  text-align:center;font-size:18px;
+}
+.buy-row{margin-top:20px;}
+.btn-buy,.btn-cart{
+  padding:12px 20px;font-size:15px;
+  border:none;border-radius:6px;
+  cursor:pointer;font-weight:600;margin-right:10px;
+}
+.btn-buy{background:#2e7d32;color:#fff;}
+.btn-cart{background:#ff9800;color:#fff;}
+</style>
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": "Ammu Organics Cold Pressed Almond Oil",
-    "image": ["images/almond1.jpg","images/almond2.jpg","images/almond3.jpg","images/almond4.jpg","images/almond5.jpg"],
-    "description": "100% pure cold-pressed sweet almond oil. Unrefined, rich in Vitamin E. Suitable for skin, hair, baby care and culinary uses.",
-    "sku": "AO-ALM-001",
-    "mpn": "AOALM100",
-    "brand": {"@type": "Brand","name":"Ammu Organics"},
-    "offers": {
-      "@type": "Offer",
-      "url": "https://yourdomain.example/almond.html",
-      "priceCurrency": "INR",
-      "price": "249.00",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-  </script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-  <style>
-    :root{--green:#2f6f4e;--beige:#f6f2e9;--muted:#64706b;--accent:#c19a6b;--max:1100px}
-    *{box-sizing:border-box}
-    body{font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,var(--beige),#fff);color:#163222;margin:0}
-    a{color:inherit}
-    .container{max-width:var(--max);margin:0 auto;padding:28px}
-
-    /* Header similar to first layout */
-    header{position:fixed;left:0;right:0;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(6px);box-shadow:0 6px 18px rgba(0,0,0,0.06)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 22px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--green),#6b8a65);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-    nav a{margin-left:14px;font-weight:600}
-    .cta{padding:8px 14px;border-radius:10px;background:var(--accent);color:#fff}
-    main{padding-top:96px}
-
-    /* Product page layout */
-    .product-wrap{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:start}
-    @media (max-width:1000px){.product-wrap{grid-template-columns:1fr}}
-
-    /* Gallery */
-    .gallery{background:#fff;border-radius:12px;padding:12px;box-shadow:0 10px 28px rgba(0,0,0,0.06)}
-    .main-media{width:100%;height:420px;overflow:hidden;border-radius:10px;position:relative}
-    .main-media img,.main-media video{width:100%;height:100%;object-fit:cover;display:block}
-    .thumbs{display:flex;gap:8px;margin-top:10px;overflow:auto}
-    .thumbs img{width:88px;height:64px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
-    .thumbs img.active{border-color:var(--green)}
-
-    /* Product details */
-    .details{background:#fff;border-radius:12px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,0.06)}
-    .details h1{font-size:20px;margin:0 0 6px}
-    .price{font-size:20px;color:var(--green);font-weight:700;margin:8px 0}
-    .meta{color:var(--muted);font-size:14px}
-    .variants{display:flex;gap:8px;margin:12px 0}
-    .variant{padding:8px 12px;border-radius:8px;border:1px solid #e6e6e6;cursor:pointer}
-    .variant.selected{border-color:var(--green);background:rgba(47,111,78,0.06)}
-    .qty{display:flex;gap:8px;align-items:center;margin-top:12px}
-    .qty button{padding:6px 10px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer}
-    .buy-row{display:flex;gap:12px;margin-top:14px}
-    .btn-buy{background:var(--green);color:#fff;padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn-cart{background:#fff;border:2px solid var(--green);padding:10px 14px;border-radius:10px;color:var(--green);cursor:pointer}
-
-    /* Tabs / accordion for details */
-    .tabs{margin-top:18px}
-    .tab-buttons{display:flex;gap:8px;flex-wrap:wrap}
-    .tab-buttons button{padding:8px 12px;border-radius:8px;border:1px solid #e6e6e6;background:#fff;cursor:pointer}
-    .tab-buttons button.active{background:linear-gradient(90deg,#fff,#f6f2e9);border-color:var(--green)}
-    .tab-content{background:#fff;padding:16px;border-radius:8px;margin-top:12px;box-shadow:0 8px 20px rgba(0,0,0,0.04)}
-
-    /* SEO / feature lists */
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media (max-width:700px){.grid-2{grid-template-columns:1fr}}
-
-    footer{padding:18px;text-align:center;color:var(--muted);font-size:14px}
-
-  </style>
 </head>
 <body>
 
-<header>
-  <div class="container nav">
-    <div class="brand">
-       <a href="index.html"><div class="logo">AO</div>
-      <div>
-        <a href="index.html"><div style="font-weight:700">Ammu Organics</div>
-        <div style="font-size:12px;color:var(--muted)">Pure. Natural. Honest.</div>
-      </div>
-    </div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="index.html#products">Products</a>
-      <a href="index.html#contact" class="cta">Contact</a>
-    </nav>
-  </div>
-</header>
+<h2>Ammu Organics – Cold Pressed Almond Oil</h2>
 
+<!-- Variant Section -->
+<div style="margin-top:12px;font-weight:700">Choose Size</div>
+<div class="variants" id="variants">
+  <button class="variant selected" data-sku="ALM100" data-price="249">100 ml</button>
+  <button class="variant" data-sku="ALM250" data-price="480">200 ml</button>
+  <button class="variant" data-sku="ALM500" data-price="1200">500 ml</button>
+</div>
 
+<!-- Quantity Section -->
+<div class="qty">
+  <button id="decQty">-</button>
+  <input type="number" id="qtyInput" value="1" min="1"/>
+  <button id="incQty">+</button>
+</div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cold-Pressed Sweet Almond Oil - Ammu Organics</title>
-
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #fffdf8;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #2e6b3d;
-      color: white;
-      padding: 15px 0;
-      text-align: center;
-      font-size: 1.4rem;
-      font-weight: 600;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      align-items: flex-start;
-    }
-
-    .gallery {
-      flex: 1 1 48%;
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .gallery img, .gallery iframe {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: none;
-    }
-
-    .gallery img.active, .gallery iframe.active {
-      display: block;
-    }
-
-    .nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(46,107,61,0.8);
-      color: white;
-      border: none;
-      font-size: 22px;
-      padding: 8px 14px;
-      cursor: pointer;
-      border-radius: 50%;
-    }
-
-    .nav-btn:hover {
-      background: rgba(46,107,61,1);
-    }
-
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    .details {
-      flex: 1 1 45%;
-    }
-
-    .details h1 {
-      color: #2e6b3d;
-      margin-bottom: 10px;
-      font-size: 1.6rem;
-    }
-
-    .price {
-      font-size: 1.3rem;
-      font-weight: bold;
-      color: #3b8551;
-      margin-bottom: 20px;
-    }
-
-    .description {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .btn {
-      background-color: #2e6b3d;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #3b8551;
-    }
-
-    .back-link {
-      display: block;
-      margin: 30px auto;
-      text-align: center;
-      text-decoration: none;
-      color: #2e6b3d;
-      font-weight: 500;
-    }
-
-    @media (max-width: 800px) {
-      .container { flex-direction: column; align-items: center; }
-      .gallery, .details { width: 100%; }
-    }
-  </style>
-</head>
-<body>
-
-   <div class="container">
-
-    <!-- 🖼️ Product Gallery -->
-    <div class="gallery" id="gallery">
-      <img src="images/almond1.jpg" alt="Cold-Pressed Sweet Almond Oil bottle front view" class="active">
-      <img src="images/almond2.jpg" alt="Almond oil bottle side view">
-      <img src="images/almond3.jpg" alt="Pure almond oil close-up">
-      <img src="images/almond4.jpg" alt="Almond oil poured in glass bowl">
-      <img src="images/almond5.jpg" alt="Ammu Organics almond oil packaging">
-      <iframe src="https://www.instagram.com/reel/DBAoSPeIX0A/embed" allowfullscreen></iframe>
-
-      <button class="nav-btn prev" onclick="changeSlide(-1)">❮</button>
-      <button class="nav-btn next" onclick="changeSlide(1)">❯</button>
-    </div>
-    </div>
-
-    <!-- Details -->
-    <aside class="details">
-      <h1>Ammu Organics Cold Pressed Almond Oil</h1>
-      <div class="meta">100% Pure • Cold-Pressed • Unrefined • Vitamin E rich</div>
-      <div class="price" id="priceDisplay">₹249.00</div>
-      <p class="meta">Ammu Organics Cold Pressed Almond Oil is made from premium almonds using traditional stone-press methods. Nourishes skin, strengthens hair and is gentle enough for baby care.</p>
-
-      <!-- Variants -->
-      <div style="margin-top:12px;font-weight:700">Choose size</div>
-      <div class="variants" id="variants">
-        <div class="variant selected" data-sku="ALM100" data-price="249">100 ml</div>
-        <div class="variant" data-sku="ALM250" data-price="449">250 ml</div>
-        <div class="variant" data-sku="ALM500" data-price="799">500 ml</div>
-      </div>
-
-      <!-- Quantity & Buy -->
-      <div class="qty">
-        <label style="font-weight:600">Quantity</label>
-        <div style="margin-left:auto;display:flex;align-items:center">
-          <button type="button" id="qtyDec">-</button>
-          <input type="number" id="qty" value="1" min="1" style="width:56px;text-align:center;border:1px solid #eee;border-radius:8px;padding:6px;margin:0 6px" />
-          <button type="button" id="qtyInc">+</button>
-        </div>
-      </div>
-
-      <div class="buy-row">
-        <button class="btn-buy" id="buyNow">Buy Now</button>
-        <button class="btn-cart" id="addCart">Add to Cart</button>
-      </div>
-
-      <div style="margin-top:12px;color:var(--muted);font-size:13px">SKU: <span id="skuDisplay">ALM100</span> • Free shipping on orders over ₹999</div>
-
-      <!-- Tabs -->
-      <div class="tabs">
-        <div class="tab-buttons">
-          <button class="active" data-tab="about">More Details</button>
-          <button data-tab="features">Key Features</button>
-          <button data-tab="benefits">Health & Culinary Benefits</button>
-          <button data-tab="how">How to Use</button>
-        </div>
-
-        <div class="tab-content" id="tabContent">
-          <!-- About (default) -->
-          <div data-panel="about">
-            <h3 style="margin-top:0">About the Product</h3>
-            <p>Ammu Organics Cold Pressed Almond Oil is extracted using a low-temperature cold-press process from premium almonds to preserve nutrients and natural aroma. The oil is unrefined, free from solvents and preservatives, and packaged in dark glass to protect quality.</p>
-            <div style="margin-top:8px;font-weight:700">More details</div>
-            <ul>
-              <li>Ingredients: 100% Sweet Almond (Prunus amygdalus) oil</li>
-              <li>Storage: Store in cool, dry place away from direct sunlight</li>
-              <li>Shelf life: 12 months from manufacturing</li>
-              <li>Packaging: Dark glass bottle with tamper-evident cap</li>
-            </ul>
-          </div>
-
-          <div data-panel="features" style="display:none">
-            <h3>Key Features</h3>
-            <ul>
-              <li>100% Pure & Cold-Pressed</li>
-              <li>Rich natural source of Vitamin E</li>
-              <li>Unrefined — no chemicals or solvents</li>
-              <li>Multi-purpose: cosmetic & edible grade</li>
-            </ul>
-          </div>
-
-          <div data-panel="benefits" style="display:none">
-            <h3>Health & Culinary Benefits</h3>
-            <div class="grid-2">
-              <div>
-                <h4>Health</h4>
-                <ul>
-                  <li>Supports healthy skin — moisturizes & soothes</li>
-                  <li>Aids hair strength and shine</li>
-                  <li>Contains healthy fatty acids and antioxidants</li>
-                </ul>
-              </div>
-              <div>
-                <h4>Culinary</h4>
-                <ul>
-                  <li>Edible-grade oil ideal for drizzling on salads</li>
-                  <li>Use in smoothies, dressings and light cooking</li>
-                  <li>Subtle nutty flavour that enhances dishes</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div data-panel="how" style="display:none">
-            <h3>How to Use</h3>
-            <h4>For Skin</h4>
-            <p>Apply a few drops to cleansed skin and massage gently. Great for dry areas, under-eye care and baby massage (perform patch test for infants).</p>
-            <h4>For Hair</h4>
-            <p>Warm 1–2 tablespoons, massage into scalp and hair. Leave for 30–60 minutes or overnight, then shampoo.</p>
-            <h4>For Consumption</h4>
-            <p>Use in small amounts for dressings, shakes, or drizzle over prepared dishes. Not recommended for high-temperature deep frying.</p>
-          </div>
-        </div>
-      </div>
-
-    </aside>
-  </section>
-
-  <!-- Extended SEO and Why choose -->
-  <section style="margin-top:28px">
-    <div class="container">
-      <h2 style="text-align:left">Why Choose Ammu Organics Almond Oil?</h2>
-      <p style="color:var(--muted)">We follow small-batch production, fair sourcing and traditional extraction methods to ensure you get nutrient-rich, pure oil with full traceability.</p>
-
-      <div class="grid-2" style="margin-top:12px">
-        <div>
-          <h3>Certifications & Quality</h3>
-          <ul>
-            <li>Cold-pressed in small batches</li>
-            <li>No solvents, no preservatives</li>
-            <li>Third-party tested for purity</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Product Specifications</h3>
-          <ul>
-            <li>Net weight: Variant dependent</li>
-            <li>Storage: Cool & dry, away from sunlight</li>
-            <li>Country of origin: India</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Structured FAQ / More SEO text -->
-  <section style="margin-top:18px">
-    <div class="container">
-      <h3>Frequently Asked Questions</h3>
-      <details>
-        <summary>Is this oil edible?</summary>
-        <p>Yes — this almond oil is edible-grade and suitable for light culinary use such as dressings and drizzling.</p>
-      </details>
-      <details>
-        <summary>Is it safe for babies?</summary>
-        <p>Our oil is pure and unrefined, commonly used for baby massage. Consult a pediatrician and perform a patch test before use on infants.</p>
-      </details>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="container">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-      <div>© 2025 Ammu Organics</div>
-      <div style="color:var(--muted)">📞 9629575552 | 📧 <a href="mailto:ammuorganicfood@gmail.com">ammuorganicfood@gmail.com</a> | <a href="https://www.instagram.com/ammuorganics8888/" target="_blank">@ammuorganics8888</a></div>
-    </div>
-  </div>
-</footer>
+<!-- Buy Buttons -->
+<div class="buy-row">
+  <button class="btn-buy" id="buyNow">Buy Now</button>
+  <button class="btn-cart" id="addCart">Add to Cart</button>
+</div>
 
 <script>
-// Gallery + video handling
-const thumbs = document.getElementById('thumbs');
-const media = document.getElementById('mediaDisplay');
-thumbs.addEventListener('click', e=>{
-  const t = e.target.closest('img');
-  if(!t) return;
-  // remove active
-  thumbs.querySelectorAll('img').forEach(i=>i.classList.remove('active'));
-  t.classList.add('active');
-  const type = t.dataset.type || 'image';
-  const src = t.src;
-  const main = document.getElementById('mainMedia');
-  main.innerHTML = '';
-  if(type==='video'){
-    const vid = document.createElement('video');
-    vid.src = 'videos/almond.mp4';
-    vid.controls = true; vid.autoplay = false; vid.playsInline = true;
-    main.appendChild(vid);
-  } else {
-    const img = document.createElement('img');
-    img.src = src; img.alt = t.alt || '';
-    main.appendChild(img);
+// -------------------------------
+// Variant Selection
+// -------------------------------
+const variantButtons=document.querySelectorAll(".variant");
+let selectedVariant = document.querySelector(".variant.selected");
+
+variantButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    variantButtons.forEach(b=>b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedVariant = btn;
+  });
+});
+
+// -------------------------------
+// Quantity Controls
+// -------------------------------
+document.getElementById("incQty").addEventListener("click",()=>{
+  let qty = document.getElementById("qtyInput");
+  qty.value = Number(qty.value) + 1;
+});
+
+document.getElementById("decQty").addEventListener("click",()=>{
+  let qty = document.getElementById("qtyInput");
+  if(Number(qty.value)>1){
+    qty.value = Number(qty.value) - 1;
   }
 });
 
-// Variants & price
-const variants = document.getElementById('variants');
-const priceDisplay = document.getElementById('priceDisplay');
-const skuDisplay = document.getElementById('skuDisplay');
-let selected = variants.querySelector('.variant.selected');
-variants.addEventListener('click', e=>{
-  const v = e.target.closest('.variant');
-  if(!v) return;
-  variants.querySelectorAll('.variant').forEach(x=>x.classList.remove('selected'));
-  v.classList.add('selected');
-  selected = v;
-  const price = v.dataset.price; const sku = v.dataset.sku;
-  priceDisplay.textContent = '₹' + price + '.00';
-  skuDisplay.textContent = sku;
-});
+// -------------------------------
+// Get Selected Data
+// -------------------------------
+function getOrderDetails(){
+  const price = Number(selectedVariant.dataset.price);
+  const sku = selectedVariant.dataset.sku;
+  const size = selectedVariant.innerText;
+  const qty = Number(document.getElementById("qtyInput").value);
+  const total = price * qty;
+  return { price, sku, size, qty, total };
+}
 
-// Quantity
-const qty = document.getElementById('qty');
-document.getElementById('qtyInc').addEventListener('click', ()=>qty.value = parseInt(qty.value||1)+1);
-document.getElementById('qtyDec').addEventListener('click', ()=>{ if(qty.value>1) qty.value = parseInt(qty.value)-1});
+// -------------------------------
+// Razorpay Buy Now
+// -------------------------------
+document.getElementById("buyNow").addEventListener("click",()=>{
 
-// Buy / Add to cart (mailto fallback)
-document.getElementById('buyNow').addEventListener('click', ()=>{
-  const variant = selected ? selected.textContent.trim() : '';
-  const sku = skuDisplay.textContent.trim();
-  const q = qty.value;
-  const price = priceDisplay.textContent.trim();
-  const subject = encodeURIComponent('Order: Ammu Organics Almond Oil - ' + variant);
-  const body = encodeURIComponent('Product: Ammu Organics Cold Pressed Almond Oil
-Variant: ' + variant + '
-SKU: ' + sku + '
-Quantity: ' + q + '
-Price each: ' + price + '
+  const order = getOrderDetails();
+  console.log("Order Details:", order);
 
-Please contact me to complete the purchase.
+  let options = {
+    key: "YOUR_RAZORPAY_KEY_HERE", // CHANGE THIS
+    amount: order.total * 100,
+    currency: "INR",
+    name: "Ammu Organics",
+    description: order.size + " - " + order.sku,
+    image: "",
+    handler: function (response){
+      alert("Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+      document.getElementById("qtyInput").value = 1;
+    },
+    prefill: {
+      name: "Ammu Organics Customer",
+      contact: "",
+      email: ""
+    },
+    theme: { color: "#2e7d32" }
+  };
 
-Name:
-Phone:
-Address:');
-  window.location.href = 'mailto:ammuorganicfood@gmail.com?subject=' + subject + '&body=' + body;
-});
-
-document.getElementById('addCart').addEventListener('click', ()=>{
-  alert('Added to cart (demo). Variant: ' + (selected?selected.textContent.trim():'') + ', Qty: ' + qty.value);
-});
-
-// Tabs
-const tabButtons = document.querySelectorAll('.tab-buttons button');
-const panels = document.querySelectorAll('[data-panel]');
-document.querySelector('.tab-buttons').addEventListener('click', e=>{
-  const b = e.target.closest('button'); if(!b) return;
-  tabButtons.forEach(x=>x.classList.remove('active'));
-  b.classList.add('active');
-  const tab = b.dataset.tab;
-  panels.forEach(p=>{ p.style.display = p.getAttribute('data-panel')===tab ? 'block' : 'none' });
+  let rzp = new Razorpay(options);
+  rzp.open();
 });
 </script>
 
