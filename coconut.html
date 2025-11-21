@@ -1,1 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ammu Organics – Product Page</title>
+
+<style>
+body{font-family:Arial;margin:20px;}
+.variants button{
+  padding:8px 14px;
+  margin:5px;
+  border:1px solid #2e7d32;
+  background:#fff;
+  color:#2e7d32;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.variants .selected{
+  background:#2e7d32;
+  color:#fff;
+}
+.qty{margin-top:15px;display:flex;align-items:center;}
+.qty button{
+  width:32px;height:32px;font-size:20px;
+  border:1px solid #2e7d32;color:#2e7d32;
+  background:#fff;border-radius:6px;cursor:pointer;
+}
+.qty input{
+  width:60px;margin:0 10px;padding:5px;
+  text-align:center;font-size:18px;
+}
+.buy-row{margin-top:20px;}
+.btn-buy,.btn-cart{
+  padding:12px 20px;font-size:15px;
+  border:none;border-radius:6px;
+  cursor:pointer;font-weight:600;margin-right:10px;
+}
+.btn-buy{background:#2e7d32;color:#fff;}
+.btn-cart{background:#ff9800;color:#fff;}
+</style>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+<body>
+
+<h2>Ammu Organics – Cold Pressed Almond Oil</h2>
+
+<!-- Variant Section -->
+<div style="margin-top:12px;font-weight:700">Choose Size</div>
+<div class="variants" id="variants">
+  <button class="variant selected" data-sku="ALM100" data-price="249">100 ml</button>
+  <button class="variant" data-sku="ALM250" data-price="480">200 ml</button>
+  <button class="variant" data-sku="ALM500" data-price="1200">500 ml</button>
+</div>
+
+<!-- Quantity Section -->
+<div class="qty">
+  <button id="decQty">-</button>
+  <input type="number" id="qtyInput" value="1" min="1"/>
+  <button id="incQty">+</button>
+</div>
+
+<!-- Buy Buttons -->
+<div class="buy-row">
+  <button class="btn-buy" id="buyNow">Buy Now</button>
+  <button class="btn-cart" id="addCart">Add to Cart</button>
+</div>
+
+<script>
+// -------------------------------
+// Variant Selection
+// -------------------------------
+const variantButtons=document.querySelectorAll(".variant");
+let selectedVariant = document.querySelector(".variant.selected");
+
+variantButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    variantButtons.forEach(b=>b.classList.remove("selected"));
+    btn.classList.add("selected");
+    selectedVariant = btn;
+  });
+});
+
+// -------------------------------
+// Quantity Controls
+// -------------------------------
+document.getElementById("incQty").addEventListener("click",()=>{
+  let qty = document.getElementById("qtyInput");
+  qty.value = Number(qty.value) + 1;
+});
+
+document.getElementById("decQty").addEventListener("click",()=>{
+  let qty = document.getElementById("qtyInput");
+  if(Number(qty.value)>1){
+    qty.value = Number(qty.value) - 1;
+  }
+});
+
+// -------------------------------
+// Get Selected Data
+// -------------------------------
+function getOrderDetails(){
+  const price = Number(selectedVariant.dataset.price);
+  const sku = selectedVariant.dataset.sku;
+  const size = selectedVariant.innerText;
+  const qty = Number(document.getElementById("qtyInput").value);
+  const total = price * qty;
+  return { price, sku, size, qty, total };
+}
+
+// -------------------------------
+// Razorpay Buy Now
+// -------------------------------
+document.getElementById("buyNow").addEventListener("click",()=>{
+
+  const order = getOrderDetails();
+  console.log("Order Details:", order);
+
+  let options = {
+    key: "YOUR_RAZORPAY_KEY_HERE", // CHANGE THIS
+    amount: order.total * 100,
+    currency: "INR",
+    name: "Ammu Organics",
+    description: order.size + " - " + order.sku,
+    image: "",
+    handler: function (response){
+      alert("Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+      document.getElementById("qtyInput").value = 1;
+    },
+    prefill: {
+      name: "Ammu Organics Customer",
+      contact: "",
+      email: ""
+    },
+    theme: { color: "#2e7d32" }
+  };
+
+  let rzp = new Razorpay(options);
+  rzp.open();
+});
+</script>
+
+</body>
+</html>
 
