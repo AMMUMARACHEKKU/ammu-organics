@@ -153,97 +153,9 @@
         <button id="incQty" aria-label="Increase quantity">+</button>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-      
-<button class="btn-buy" id="buyNow">Buy Now</button>
-
-<script>
-// Variant selection logic
-let selectedVariant = document.querySelector(".variant.selected");
-
-document.querySelectorAll(".variant").forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelectorAll(".variant").forEach(b => b.classList.remove("selected"));
-        btn.classList.add("selected");
-        selectedVariant = btn;
-    });
-});
-
-// Quantity increase/decrease
-document.getElementById("incQty").onclick = () => {
-    document.getElementById("qtyInput").value++;
-};
-
-document.getElementById("decQty").onclick = () => {
-    let q = document.getElementById("qtyInput").value;
-    if (q > 1) document.getElementById("qtyInput").value--;
-};
-
-// BUY NOW → WHATSAPP
-document.getElementById("buyNow").addEventListener("click", () => {
-
-    const price = Number(selectedVariant.dataset.price);
-    const size  = selectedVariant.innerText;
-    const sku   = selectedVariant.dataset.sku;
-    const qty   = Number(document.getElementById("qtyInput").value);
-    const total = price * qty;
-
-    const msg =
-`🛒 *New Order Request*
-------------------------------------
-📦 *Product:* Ammu Organics Cold Pressed Almond Oil
-🔢 *Variant:* ${size}
-🆔 *SKU:* ${sku}
-📦 *Quantity:* ${qty}
-💰 *Price:* ₹${price}
-💵 *Total Amount:* ₹${total}
-------------------------------------
-Please confirm my order.`;
-
-    const phone = "919629575552"; // ← YOUR WHATSAPP NUMBER
-
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+      <div class="buy-row">
+        <button class="btn-buy" id="buyNow">Buy Now</button>
+     <button class="btn-cart" id="addCart">Add to Cart</button>
         
       </div>
 
@@ -496,10 +408,25 @@ buyNowBtn.addEventListener('click', ()=>{
   const sku = skuDisplay.textContent.trim();
   const qty = qtyInput.value;
   const price = priceDisplay.textContent.trim();
-  const subject = encodeURIComponent('Order: Ammu Organics Almond Oil - ' + variantText);
-  const body = encodeURIComponent('Product: Ammu Organics Cold Pressed Almond Oil\nVariant: ' + variantText + '\nSKU: ' + sku + '\nQuantity: ' + qty + '\nPrice each: ' + price + '\n\nPlease contact me to complete the purchase.\n\nName:\nPhone:\nAddress:');
-  window.location.href = 'mailto:ammuorganicfood@gmail.com?subject=' + subject + '&body=' + body;
+
+  const msg = encodeURIComponent(
+    "🛒 *Ammu Organics - Order Request*\n\n" +
+    "*Product:* Cold Pressed Almond Oil\n" +
+    "*Variant:* " + variantText + "\n" +
+    "*SKU:* " + sku + "\n" +
+    "*Quantity:* " + qty + "\n" +
+    "*Price:* " + price + "\n\n" +
+    "Please confirm the order.\n\n" +
+    "📍 *Customer Details*\n" +
+    "Name:\nPhone:\nAddress:"
+  );
+
+  // Your WhatsApp number (with country code, no +)
+  const phone = "919629575552";
+
+  window.location.href = "https://wa.me/" + phone + "?text=" + msg;
 });
+
 
 addCartBtn.addEventListener('click', ()=>{
   const variantText = selectedVariant ? selectedVariant.textContent.trim() : 'Default';
