@@ -145,3 +145,133 @@ document.getElementById("buyNow").addEventListener("click",()=>{
 </body>
 </html>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ammu Organics – Almond Oil</title>
+
+<style>
+    body {font-family: Arial, sans-serif; padding: 20px;}
+
+    .variants button {
+        padding: 10px 20px;
+        border: 1px solid #666;
+        background: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .variants .selected {
+        background: #2e7d32;
+        color: white;
+        border-color: #2e7d32;
+    }
+
+    .qty {margin: 15px 0; display: flex; gap: 10px; align-items:center;}
+    .qty button {padding: 8px 15px;}
+    .qty input {width: 50px; text-align: center;}
+
+    .btn-buy, .btn-cart {
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+    }
+    .btn-buy {background: #2e7d32;}
+</style>
+
+</head>
+<body>
+
+<h2>Ammu Organics Cold Pressed Almond Oil</h2>
+
+<!-- Variants -->
+<div style="margin-top:12px;font-weight:700">Choose size</div>
+<div class="variants" id="variants">
+    <button class="variant selected" data-sku="ALM100" data-price="249">100 ml</button>
+    <button class="variant" data-sku="ALM250" data-price="480">200 ml</button>
+    <button class="variant" data-sku="ALM500" data-price="1200">500 ml</button>
+</div>
+
+<!-- Quantity Selector -->
+<div class="qty">
+    <button id="decQty">-</button>
+    <input type="number" id="qtyInput" value="1" min="1">
+    <button id="incQty">+</button>
+</div>
+
+<!-- Buy Now Button -->
+<button class="btn-buy" id="buyNow">Buy Now</button>
+
+<script>
+// Variant selection logic
+let selectedVariant = document.querySelector(".variant.selected");
+
+document.querySelectorAll(".variant").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".variant").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedVariant = btn;
+    });
+});
+
+// Quantity increase/decrease
+document.getElementById("incQty").onclick = () => {
+    document.getElementById("qtyInput").value++;
+};
+
+document.getElementById("decQty").onclick = () => {
+    let q = document.getElementById("qtyInput").value;
+    if (q > 1) document.getElementById("qtyInput").value--;
+};
+
+// BUY NOW → WHATSAPP
+document.getElementById("buyNow").addEventListener("click", () => {
+
+    const price = Number(selectedVariant.dataset.price);
+    const size  = selectedVariant.innerText;
+    const sku   = selectedVariant.dataset.sku;
+    const qty   = Number(document.getElementById("qtyInput").value);
+    const total = price * qty;
+
+    const msg =
+`🛒 *New Order Request*
+------------------------------------
+📦 *Product:* Ammu Organics Cold Pressed Almond Oil
+🔢 *Variant:* ${size}
+🆔 *SKU:* ${sku}
+📦 *Quantity:* ${qty}
+💰 *Price:* ₹${price}
+💵 *Total Amount:* ₹${total}
+------------------------------------
+Please confirm my order.`;
+
+    const phone = "919629575552"; // ← YOUR WHATSAPP NUMBER
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+});
+</script>
+
+</body>
+</html>
+
+
